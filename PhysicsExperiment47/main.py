@@ -6,7 +6,7 @@
 
 def main():
     # cal_slope()
-    count()
+    # count()
 
 
 # 坪坡度
