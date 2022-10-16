@@ -13,17 +13,11 @@ lbd = 627.0 * 10 ** (-6)
 foc = 100
 
 
-def main():
-    for i in range(5):
-        delta_x[i - 1] = (abs(xn[i - 1] - x1[i - 1]) + abs(xn_prime[i - 1] - x1_prime[i - 1])) / (2 * (n - 1))
-    print(delta_x)
-
-
 def average():
     sum_up_x = 0
     for i in range(5):
         sum_up_x += delta_x[i - 1]
-    print(sum_up_x / 5)
+    return sum_up_x / 5
 
 
 def get_a():
@@ -31,16 +25,28 @@ def get_a():
     for i in range(5):
         sum_up_x += delta_x[i - 1]
     a = lbd * foc / (sum_up_x / 5)
-    print(a)
+    return a
 
 
 def get_sigma_delta_x():
     sigma_delta_x = np.std(delta_x)
-    print(sigma_delta_x)
+    return sigma_delta_x
+
+
+def get_ave_sigma_delta_x():
+    ave_sigma_delta_x = get_sigma_delta_x() / np.sqrt(5)
+    return ave_sigma_delta_x
+
+
+def main():
+    for i in range(5):
+        delta_x[i - 1] = (abs(xn[i - 1] - x1[i - 1]) + abs(xn_prime[i - 1] - x1_prime[i - 1])) / (2 * (n - 1))
+    print(delta_x)
+    print("平均 Delta x：", average())
+    print("狭缝宽度：", get_a())
+    print("Delta x 的标准差：", get_sigma_delta_x())
+    print("Delta x 的平均的标准差：", get_ave_sigma_delta_x())
 
 
 if __name__ == "__main__":
     main()
-    average()
-    get_a()
-    get_sigma_delta_x()
