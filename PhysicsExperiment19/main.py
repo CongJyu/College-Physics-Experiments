@@ -38,14 +38,27 @@ def get_ave_sigma_delta_x():
     return ave_sigma_delta_x
 
 
+def get_e_a():
+    ea = np.sqrt((get_ave_sigma_delta_x() / average()) ** 2)
+    return ea
+
+
+def get_sigma_ave_a():
+    sigma_ave_a = get_a() * get_e_a()
+    return sigma_ave_a
+
+
 def main():
     for i in range(5):
         delta_x[i - 1] = (abs(xn[i - 1] - x1[i - 1]) + abs(xn_prime[i - 1] - x1_prime[i - 1])) / (2 * (n - 1))
     print(delta_x)
+
     print("平均 Delta x：", average())
     print("狭缝宽度：", get_a())
     print("Delta x 的标准差：", get_sigma_delta_x())
     print("Delta x 的平均的标准差：", get_ave_sigma_delta_x())
+    print("Ea 等于：", get_e_a())
+    print("a 的平均的标准差：", get_sigma_ave_a())
 
 
 if __name__ == "__main__":
